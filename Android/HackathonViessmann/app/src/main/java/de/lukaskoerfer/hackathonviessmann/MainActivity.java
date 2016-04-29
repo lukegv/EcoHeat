@@ -20,6 +20,11 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import de.lukaskoerfer.hackathonviessmann.model.PredictionDataPoint;
+import de.lukaskoerfer.hackathonviessmann.model.WeatherForecast;
+import de.lukaskoerfer.hackathonviessmann.ui.PredictionChart;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,47 +34,31 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        LineChart myChart = (LineChart) findViewById(R.id.myLineChart);
-        myChart.setDescription("");
-        ArrayList<String> xVals = new ArrayList<String>();
-        xVals.add("8:00");
-        xVals.add("12:00");
-        xVals.add("16:00");
-        xVals.add("20:00");
-        xVals.add("24:00");
+        List<PredictionDataPoint> predictionData = new ArrayList<PredictionDataPoint>();
+        predictionData.add(new PredictionDataPoint(0,18));
+        predictionData.add(new PredictionDataPoint(1,23));
+        predictionData.add(new PredictionDataPoint(2,23));
+        predictionData.add(new PredictionDataPoint(3,23));
+        predictionData.add(new PredictionDataPoint(4,18));
 
-        ArrayList<Entry> yVals = new ArrayList<Entry>();
-        yVals.add(new Entry(8,0));
-        yVals.add(new Entry(11,1));
-        yVals.add(new Entry(16,2));
-        yVals.add(new Entry(15,3));
-        yVals.add(new Entry(12,4));
+        predictionData.get(0).setTargetTemperature(20);
+        predictionData.get(0).setEnergyConsumption(100);
 
-        LineDataSet lineData1 = new LineDataSet(yVals, "Temperatur in °C");
-        lineData1.setAxisDependency(YAxis.AxisDependency.LEFT);
-        lineData1.setDrawValues(false);
-        lineData1.setColor(Color.RED);
-        lineData1.setDrawCircles(false);
+        predictionData.get(1).setTargetTemperature(20);
+        predictionData.get(1).setEnergyConsumption(100);
+
+        predictionData.get(2).setTargetTemperature(20);
+        predictionData.get(2).setEnergyConsumption(100);
+
+        predictionData.get(3).setTargetTemperature(20);
+        predictionData.get(3).setEnergyConsumption(100);
+
+        predictionData.get(4).setTargetTemperature(20);
+        predictionData.get(4).setEnergyConsumption(100);
 
 
-        ArrayList<Entry> target = new ArrayList<Entry>();
-        target.add(new Entry(18,0));
-        target.add(new Entry(23,1));
-        target.add(new Entry(23,2));
-        target.add(new Entry(23,3));
-        target.add(new Entry(18,4));
-
-        LineDataSet lineData2 = new LineDataSet(target, "Target in °C");
-        lineData2.setAxisDependency(YAxis.AxisDependency.LEFT);
-        lineData2.setDrawValues(false);
-        lineData2.setDrawCircles(false);
-
-        ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
-        dataSets.add(lineData1);
-        dataSets.add(lineData2);
-        LineData data = new LineData(xVals, dataSets);
-        myChart.setData(data);
-        myChart.invalidate();
+        PredictionChart myChart = (PredictionChart) findViewById(R.id.myLineChart);
+        myChart.setPredictionData(predictionData);
 
     }
 	
