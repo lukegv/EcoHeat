@@ -16,8 +16,8 @@ public class DbContracts {
 
         public static String SqlCreate() {
             return "CREATE TABLE " + TABLE_FORECAST + " ( " +
-                    COLUMN_START + " INTEGER, " +
-                    COLUMN_END + " INTEGER, " +
+                    COLUMN_START + " TEXT, " +
+                    COLUMN_END + " TEXT, " +
                     COLUMN_MIN_TEMP + " REAL, " +
                     COLUMN_MAX_TEMP + " REAL );";
         }

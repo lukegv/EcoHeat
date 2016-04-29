@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <EditTextPreference
-        android:title="Test1"
-        android:key="" ></EditTextPreference>
+        android:title="Username"
+        android:key="pref_username" ></EditTextPreference>
 
-    <CheckBoxPreference
-        android:title="Test2"
-        android:key="" ></CheckBoxPreference>
+    <ListPreference
+        android:title="Location"
+        android:entries="@array/locations"
+        android:entryValues="@array/location_values"
+        android:key="pref_location" ></ListPreference>
 
 </PreferenceScreen>
