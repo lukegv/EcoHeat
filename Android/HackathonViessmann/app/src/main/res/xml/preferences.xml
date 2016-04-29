@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <EditTextPreference
+        android:title="Test1"
+        android:key="" ></EditTextPreference>
+
+    <CheckBoxPreference
+        android:title="Test2"
+        android:key="" ></CheckBoxPreference>
+
+</PreferenceScreen>
