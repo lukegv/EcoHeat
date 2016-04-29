@@ -25,20 +25,35 @@ public class WeatherForecast {
         this.MaxTemperature = Double.parseDouble(temperatureElement.getAttribute("max"));
     }
 
+    public WeatherForecast(String startTime, String endTime, double minTemperature, double maxTemperature) {
+        this.StartTime = startTime;
+        this.EndTime = endTime;
+        this.MinTemperature = minTemperature;
+        this.MaxTemperature = maxTemperature;
+    }
 
     public String getStartTime() {
-        return StartTime;
+        return this.StartTime;
     }
 
     public String getEndTime() {
-        return EndTime;
+        return this.EndTime;
     }
 
     public double getMinTemperature() {
-        return MinTemperature;
+        return this.MinTemperature;
     }
 
     public double getMaxTemperature() {
-        return MaxTemperature;
+        return this.MaxTemperature;
+    }
+
+    public double getAvgTemperature() {
+        return (this.MaxTemperature + this.MinTemperature) / 2;
+    }
+
+    @Override
+    public String toString() {
+        return this.StartTime + " - " + this.EndTime + " : " + Double.toString(this.getAvgTemperature());
     }
 }
