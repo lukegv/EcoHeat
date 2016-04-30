@@ -59,8 +59,10 @@ public class PredictionChart extends LineChart{
 
         dataSets = new ArrayList<ILineDataSet>();
 
+        this.setPinchZoom(false);
+        this.setDoubleTapToZoomEnabled(false);
 
-        this.setDrawGridBackground(false);
+
     }
 
     private void setColors(){
@@ -70,6 +72,7 @@ public class PredictionChart extends LineChart{
         lineOutsideTemperature.setDrawCubic(true);
         lineOutsideTemperature.setLineWidth(4);
         lineOutsideTemperature.setColor(R.color.colorPrimary);
+        lineOutsideTemperature.setHighlightEnabled(false);
 
         lineTargetTemperature.setAxisDependency(YAxis.AxisDependency.LEFT);
         lineTargetTemperature.setDrawValues(false);

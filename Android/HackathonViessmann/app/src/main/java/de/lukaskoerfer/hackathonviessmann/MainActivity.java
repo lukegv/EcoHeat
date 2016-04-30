@@ -13,6 +13,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.honorato.multistatetogglebutton.MultiStateToggleButton;
+
 import java.util.List;
 import java.util.ArrayList;
 
@@ -34,31 +36,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_main);
 
-        List<PredictionDataPoint> predictionData = new ArrayList<PredictionDataPoint>();
-        predictionData.add(new PredictionDataPoint(0,18));
-        predictionData.add(new PredictionDataPoint(1,23));
-        predictionData.add(new PredictionDataPoint(2,23));
-        predictionData.add(new PredictionDataPoint(3,23));
-        predictionData.add(new PredictionDataPoint(4,18));
-
-        predictionData.get(0).setTargetTemperature(20);
-        predictionData.get(0).setEnergyConsumption(100);
-
-        predictionData.get(1).setTargetTemperature(20);
-        predictionData.get(1).setEnergyConsumption(100);
-
-        predictionData.get(2).setTargetTemperature(20);
-        predictionData.get(2).setEnergyConsumption(100);
-
-        predictionData.get(3).setTargetTemperature(20);
-        predictionData.get(3).setEnergyConsumption(100);
-
-        predictionData.get(4).setTargetTemperature(20);
-        predictionData.get(4).setEnergyConsumption(100);
-
-
-        PredictionChart myChart = (PredictionChart) findViewById(R.id.myLineChart);
-        myChart.setPredictionData(predictionData);
+        MultiStateToggleButton multiToggle = (MultiStateToggleButton) findViewById(R.id.stateToggle);
+        boolean[] startingStates = {true,false,false};
+        multiToggle.setStates(startingStates);
     }
 
     @Override
