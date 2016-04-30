@@ -12,7 +12,7 @@ public class HeatingPattern {
     public void setEcoMode(List<PredictionDataPoint> predictionData, Context context){
         UserPreferences prefs = UserPreferences.FromSettings(context);
         int n = predictionData.size();
-        float time = 0;
+        float time = System.currentTimeMillis();
         float temp;
         for (int i=0;i<n;i++) {
             temp = predictionData.get(i).getTime()+time %(60*60*24);
