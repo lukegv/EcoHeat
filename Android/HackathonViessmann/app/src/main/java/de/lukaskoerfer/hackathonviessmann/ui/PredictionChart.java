@@ -96,7 +96,7 @@ public class PredictionChart extends LineChart{
         for(PredictionDataPoint point: predictionData) {
             timeStamps.add(String.valueOf( point.getTime()));
             targetTemperatures.add(new Entry(point.getTargetTemperature(),index));
-            energyComsumptions.add(new Entry(point.getEnergyConsumption(),index));
+            energyComsumptions.add(new Entry(point.getEnergyConsumption()*100,index));
             outsideTemperatures.add(new Entry(point.getOutsideTemperature(),index));
             index++;
         }
@@ -105,7 +105,7 @@ public class PredictionChart extends LineChart{
 
         lineTargetTemperature = new LineDataSet(targetTemperatures, "Target in °C");
 
-        lineEnergyConsumption = new LineDataSet(energyComsumptions, "Target in °C");
+        lineEnergyConsumption = new LineDataSet(energyComsumptions, "Energy");
 
         setColors();
 
