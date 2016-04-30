@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import java.util.List;
 import java.util.ArrayList;
 
+import de.lukaskoerfer.hackathonviessmann.model.LinearForecastInterpolation;
 import de.lukaskoerfer.hackathonviessmann.model.PredictionDataPoint;
 import de.lukaskoerfer.hackathonviessmann.model.WeatherForecast;
 import de.lukaskoerfer.hackathonviessmann.ui.PredictionChart;
@@ -94,7 +95,11 @@ public class MainActivity extends AppCompatActivity {
         Log.d("Weather forecast", Integer.toString(weatherForecast.size()));
         for (WeatherForecast element : weatherForecast) {
             Log.d("Weather forecast", element.toString());
+            System.out.println(LinearForecastInterpolation.stringToSecond(element.getEndTime()));
         }
+        List<PredictionDataPoint> predictionData = LinearForecastInterpolation.getPredictionPoints(weatherForecast);
+        PredictionChart myChart = (PredictionChart) findViewById(R.id.myLineChart);
+        myChart.setPredictionData(predictionData);
     }
 
     private class WeatherLoad extends WeatherLoadTask {
