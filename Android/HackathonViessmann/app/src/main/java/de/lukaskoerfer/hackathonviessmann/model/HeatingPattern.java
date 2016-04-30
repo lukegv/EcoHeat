@@ -14,17 +14,17 @@ public class HeatingPattern {
         UserPreferences prefs = UserPreferences.FromSettings(context);
         int n = predictionData.size();
         float time = System.currentTimeMillis();
+        float help = time/(1000*60*60*24);
+        float help2 = help%7;
+        Log.d("HeatPAt",String.valueOf(help) + " end:" + String.valueOf(help2));
         float temp;
         for (int i=0;i<n;i++) {
             temp = (predictionData.get(i).getTime()+time/1000) %(60*60*24);
-            Log.d("HeatPAt",String.valueOf(prefs.getWeekDayStart()*60) + " end:" + String.valueOf(prefs.getWeekDayEnd()*60));
             if ( temp <= prefs.getWeekDayStart()*60 || temp >= prefs.getWeekDayEnd()*60) {
                 predictionData.get(i).setTargetTemperature(prefs.getNightTemperature());
-                Log.d("HeatPAt","night");
             }
             else{
                 predictionData.get(i).setTargetTemperature(prefs.getDayTemperature());
-                Log.d("HeatPAt","day");
             }
         }
     }
