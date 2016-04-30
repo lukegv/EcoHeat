@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import org.honorato.multistatetogglebutton.MultiStateToggleButton;
+import org.honorato.multistatetogglebutton.ToggleButton;
 
 import java.util.List;
 
@@ -29,14 +30,27 @@ import de.lukaskoerfer.hackathonviessmann.data.WeatherLoadTask;
 
 public class MainActivity extends AppCompatActivity {
 
+    PredictionChart myChart;
+    List<PredictionDataPoint> predictionData;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_main);
 
-        MultiStateToggleButton multiToggle = (MultiStateToggleButton) findViewById(R.id.stateToggle);
+        MultiStateToggleButton stateToggle = (MultiStateToggleButton) findViewById(R.id.stateToggle);
         boolean[] startingStates = {true,false,false};
-        multiToggle.setStates(startingStates);
+        stateToggle.setStates(startingStates);
+        stateToggle.setOnValueChangedListener(new ToggleButton.OnValueChangedListener() {
+            @Override
+            public void onValueChanged(int value) {
+                updateChart();
+            }
+        });
+
+        myChart = (PredictionChart) findViewById(R.id.myLineChart);
+        myChart.setScaleEnabled(false);
+        myChart.setDrawMarkerViews(false);
     }
 
     @Override
@@ -114,19 +128,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
     private void handleWeather() {
         List<WeatherForecast> weatherForecast = Database.Instance(this).getCurrentWeatherForecast();
-		Log.d("Weather forecast", Integer.toString(weatherForecast.size()));
-        for (WeatherForecast element : weatherForecast) {
-            Log.d("Weather forecast", element.toString());
-            System.out.println(LinearForecastInterpolation.stringToSecond(element.getEndTime()));
-        }
-        List<PredictionDataPoint> predictionData = LinearForecastInterpolation.getPredictionPoints(weatherForecast);
+        predictionData = LinearForecastInterpolation.getPredictionPoints(weatherForecast);
+        updateChart();
+    }
+
+    private void updateChart(){
         for(int i=0;i<predictionData.size();i++) {
             predictionData.get(i).setTargetTemperature(23);
             predictionData.get(i).setEnergyConsumption(0.0015f);
-		}
-		PredictionChart myChart = (PredictionChart) findViewById(R.id.myLineChart);
+        }
         PredictionCalculator.predictEnergyConsumption(predictionData,0.002f,0.004f,5);
         myChart.setPredictionData(predictionData);
     }
@@ -179,6 +192,7 @@ public class MainActivity extends AppCompatActivity {
             MainActivity.this.handleWeather();
             super.onPostExecute(v);
         }
+
     }
 
 }

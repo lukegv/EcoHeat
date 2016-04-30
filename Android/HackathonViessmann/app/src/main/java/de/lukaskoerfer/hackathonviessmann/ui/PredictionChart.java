@@ -63,8 +63,9 @@ public class PredictionChart extends LineChart{
         this.setDoubleTapToZoomEnabled(false);
         this.getAxisLeft().setDrawGridLines(false);
         this.getAxisRight().setDrawGridLines(false);
+        this.getAxisRight().setEnabled(false);
         this.getXAxis().setDrawGridLines(false);
-        this.setDrawMarkerViews(false);
+        this.setTouchEnabled(false);
         this.setDescription("");
     }
 
@@ -74,22 +75,21 @@ public class PredictionChart extends LineChart{
         lineOutsideTemperature.setDrawCircles(false);
         lineOutsideTemperature.setDrawCubic(true);
         lineOutsideTemperature.setLineWidth(4);
-        lineOutsideTemperature.setColor(R.color.colorPrimary);
+        lineOutsideTemperature.setColor(Color.argb(255,207,0,3));
 
 
         lineTargetTemperature.setAxisDependency(YAxis.AxisDependency.LEFT);
         lineTargetTemperature.setDrawValues(false);
         lineTargetTemperature.setDrawCircles(false);
         lineTargetTemperature.setLineWidth(4);
-        lineOutsideTemperature.setColor(Color.BLACK);
+        lineTargetTemperature.setColor(Color.BLACK);
 
 
 
         lineEnergyConsumption.setAxisDependency(YAxis.AxisDependency.LEFT);
         lineEnergyConsumption.setDrawValues(false);
-        lineOutsideTemperature.setColor(R.color.colorPrimary);
-        lineEnergyConsumption.setFillAlpha(50);
-        lineEnergyConsumption.setFillColor(R.color.colorPrimary);
+        lineEnergyConsumption.setColor(Color.argb(125,207,0,3));
+        lineEnergyConsumption.setFillColor(Color.argb(125,207,0,3));
         lineEnergyConsumption.setDrawCircles(false);
         lineEnergyConsumption.setDrawFilled(true);
         lineEnergyConsumption.setLineWidth(0);
@@ -108,7 +108,7 @@ public class PredictionChart extends LineChart{
         Integer index = 0;
 
         for(PredictionDataPoint point: predictionData) {
-            timeStamps.add(String.valueOf( point.getTime()));
+            timeStamps.add(String.valueOf( (int)point.getTime()/60/60) + "h");
             targetTemperatures.add(new Entry(point.getTargetTemperature(),index));
             energyComsumptions.add(new Entry(point.getEnergyConsumption()*100,index));
             outsideTemperatures.add(new Entry(point.getOutsideTemperature(),index));
@@ -124,9 +124,9 @@ public class PredictionChart extends LineChart{
         setColors();
 
         dataSets.clear();
+        dataSets.add(lineEnergyConsumption);
         dataSets.add(lineOutsideTemperature);
         dataSets.add(lineTargetTemperature);
-        dataSets.add(lineEnergyConsumption);
 
         LineData data = new LineData(timeStamps, dataSets);
         this.setData(data);
