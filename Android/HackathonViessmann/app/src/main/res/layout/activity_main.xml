@@ -12,8 +12,8 @@
     android:gravity="center"
     tools:context="de.lukaskoerfer.hackathonviessmann.MainActivity">
         <org.honorato.multistatetogglebutton.MultiStateToggleButton
-            android:id="@+id/mstb_multi_id"
-            android:layout_width="wrap_content"
+            android:id="@+id/stateToggle"
+            android:layout_width="match_parent"
             android:layout_height="0dip"
             android:layout_weight="0.6"
             android:layout_marginTop="10dip"

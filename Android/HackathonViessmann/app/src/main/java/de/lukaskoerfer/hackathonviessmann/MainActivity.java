@@ -6,11 +6,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import org.honorato.multistatetogglebutton.MultiStateToggleButton;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -33,40 +36,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_main);
 
-        List<PredictionDataPoint> predictionData = new ArrayList<PredictionDataPoint>();
-        predictionData.add(new PredictionDataPoint(0,18));
-        predictionData.add(new PredictionDataPoint(1,23));
-        predictionData.add(new PredictionDataPoint(2,23));
-        predictionData.add(new PredictionDataPoint(3,23));
-        predictionData.add(new PredictionDataPoint(4,18));
-
-        predictionData.get(0).setTargetTemperature(20);
-        predictionData.get(0).setEnergyConsumption(100);
-
-        predictionData.get(1).setTargetTemperature(20);
-        predictionData.get(1).setEnergyConsumption(100);
-
-        predictionData.get(2).setTargetTemperature(20);
-        predictionData.get(2).setEnergyConsumption(100);
-
-        predictionData.get(3).setTargetTemperature(20);
-        predictionData.get(3).setEnergyConsumption(100);
-
-        predictionData.get(4).setTargetTemperature(20);
-        predictionData.get(4).setEnergyConsumption(100);
-
-
-        PredictionChart myChart = (PredictionChart) findViewById(R.id.myLineChart);
-        myChart.setPredictionData(predictionData);
+        MultiStateToggleButton multiToggle = (MultiStateToggleButton) findViewById(R.id.stateToggle);
+        boolean[] startingStates = {true,false,false};
+        multiToggle.setStates(startingStates);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         if (!UserData.IsUserLoggedIn(this)) {
-            this.switchAccount();
+            this.switchAccount(false);
         } else {
-            this.updateUser();
+            this.handleUser(false);
         }
     }
 	
@@ -80,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.item_switch_account:
-                this.switchAccount();
+                this.switchAccount(true);
                 return true;
             case R.id.item_preferences:
                 Intent preferencesIntent = new Intent(this, PreferenceActivity.class);
@@ -90,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void switchAccount() {
+    public void switchAccount(final boolean cancelable) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("EcoHeat login");
         View view = this.getLayoutInflater().inflate(R.layout.dialog_login, null);
@@ -103,18 +84,30 @@ public class MainActivity extends AppCompatActivity {
                 (new UserdataLoad()).execute(enteredUsername);
             }
         });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (cancelable) {
+                    dialog.dismiss();
+                } else {
+                    MainActivity.this.finish();
+                }
+            }
+        });
         builder.setCancelable(false);
         builder.create().show();
     }
 
-    private void updateUser() {
+    private void handleUser(boolean changed) {
         UserData userData = UserData.FromSettings(this);
-        if (!Database.Instance(this).isWeatherForecastUpToDate(null, userData)) {
-
+        if (changed || !Database.Instance(this).isWeatherForecastUpToDate()) {
+            (new WeatherLoad()).execute(userData.getLocation());
+        } else {
+            this.handleWeather();
         }
     }
 
-    private void updateWeather() {
+    private void handleWeather() {
         List<WeatherForecast> weatherForecast = Database.Instance(this).getCurrentWeatherForecast();
 		Log.d("Weather forecast", Integer.toString(weatherForecast.size()));
         for (WeatherForecast element : weatherForecast) {
@@ -124,9 +117,10 @@ public class MainActivity extends AppCompatActivity {
         List<PredictionDataPoint> predictionData = LinearForecastInterpolation.getPredictionPoints(weatherForecast);
         for(int i=0;i<predictionData.size();i++) {
             predictionData.get(i).setTargetTemperature(23);
-            predictionData.get(i).setEnergyConsumption(15);
+            predictionData.get(i).setEnergyConsumption(0.0015f);
 		}
 		PredictionChart myChart = (PredictionChart) findViewById(R.id.myLineChart);
+        PredictionCalculator.predictEnergyConsumption(predictionData,0.002f,0.004f,5);
         myChart.setPredictionData(predictionData);
     }
 
@@ -149,10 +143,10 @@ public class MainActivity extends AppCompatActivity {
             this.progressDialog.dismiss();
             if (UserData.IsValid(userData)) {
                 userData.Save(this.context);
-                MainActivity.this.updateUser();
+                MainActivity.this.handleUser(true);
             } else {
                 Toast.makeText(MainActivity.this, "User does not exist!", Toast.LENGTH_SHORT).show();
-                MainActivity.this.switchAccount();
+                MainActivity.this.switchAccount(UserData.IsUserLoggedIn(this.context));
             }
             super.onPostExecute(userData);
         }
@@ -168,14 +162,14 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            this.progressDialog = ProgressDialog.show(this.context, "Loading weather forecast", "Please wait ...", true, false);
+            this.progressDialog = ProgressDialog.show(this.context, "Loading weather data", "Please wait ...", true, false);
             super.onPreExecute();
         }
 
         @Override
         protected void onPostExecute(Void v) {
             this.progressDialog.dismiss();
-            MainActivity.this.updateWeather();
+            MainActivity.this.handleWeather();
             super.onPostExecute(v);
         }
     }

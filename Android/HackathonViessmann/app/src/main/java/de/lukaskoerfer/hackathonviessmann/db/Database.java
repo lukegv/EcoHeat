@@ -42,7 +42,6 @@ public class Database extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + DbContracts.WeatherForecastTable.TABLE_FORECAST + ";");
         for (WeatherForecast forecastElement : updatedForecast) {
-            // TODO
             db.execSQL("INSERT INTO " + DbContracts.WeatherForecastTable.TABLE_FORECAST + " VALUES ( '" +
                     forecastElement.getStartTime() + "' , '" +
                     forecastElement.getEndTime() + "' , '" +
@@ -67,8 +66,9 @@ public class Database extends SQLiteOpenHelper {
         return forecast;
     }
 
-    public boolean isWeatherForecastUpToDate(GregorianCalendar datetime, UserData userData) {
+    public boolean isWeatherForecastUpToDate() {
         SQLiteDatabase db = this.getReadableDatabase();
+        db.query(false, DbContracts.WeatherForecastTable.TABLE_FORECAST, null, null, null, null, null, null, null);
         return false;
     }
 

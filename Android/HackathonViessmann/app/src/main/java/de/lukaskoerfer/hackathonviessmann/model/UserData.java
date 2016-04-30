@@ -27,7 +27,7 @@ public class UserData {
             this.HouseId = Integer.parseInt(xml_element.getAttribute("houseid"));
             this.Const_Prop = Float.parseFloat(xml_element.getAttribute("const_prop"));
             this.Const_Deriv = Float.parseFloat(xml_element.getAttribute("const_deriv"));
-            this.LocationString = xml_element.getAttribute("location");
+            this.LocationString = xml_element.getAttribute("longlat");
         } else {
             this.Username = "";
         }
@@ -76,8 +76,8 @@ public class UserData {
         return Const_Deriv;
     }
 
-    public String getLocationString() {
-        return LocationString;
+    public GlobalLocation getLocation() {
+        return new GlobalLocation(this.LocationString);
     }
 
     public int getHouseId() {
