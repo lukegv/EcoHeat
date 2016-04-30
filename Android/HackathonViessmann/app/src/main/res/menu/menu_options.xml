@@ -1,11 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/item_switch_account"
-        android:title="Switch account">
+        android:id="@+id/item_rank"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/rank"
+        android:title="Eco Rank">
+    </item>
+    <item
+        android:id="@+id/item_history"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/history"
+        android:title="Last days">
+    </item>
+    <item
+        android:id="@+id/item_switch_user"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/switch_user"
+        android:title="Switch user">
     </item>
     <item
         android:id="@+id/item_preferences"
+        android:icon="@drawable/preferences"
+        app:showAsAction="ifRoom"
         android:title="Preferences">
     </item>
 </menu>

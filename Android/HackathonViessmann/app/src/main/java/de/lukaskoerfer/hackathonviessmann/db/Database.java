@@ -63,13 +63,17 @@ public class Database extends SQLiteOpenHelper {
             forecast.add(new WeatherForecast(startTime, endTime, minTemp, maxTemp));
             resultLeft = result.moveToNext();
         }
+        result.close();
         return forecast;
     }
 
     public boolean isWeatherForecastUpToDate() {
         SQLiteDatabase db = this.getReadableDatabase();
-        db.query(false, DbContracts.WeatherForecastTable.TABLE_FORECAST, null, null, null, null, null, null, null);
-        return false;
+        Cursor result = db.query(false, DbContracts.WeatherForecastTable.TABLE_FORECAST,
+                null, "datetime('" + DbContracts.WeatherForecastTable.COLUMN_END + "') < datetime('now')",
+                null, null, null, null, null);
+        boolean resultExists = result.moveToFirst();
+        return !resultExists;
     }
 
 }

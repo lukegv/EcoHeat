@@ -18,7 +18,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".PreferenceActivity" />
-        <activity android:name=".RankActivity"></activity>
+        <activity android:name=".RankActivity" />
+        <activity android:name=".HistoryActivity"></activity>
     </application>
 
 </manifest>

@@ -16,7 +16,6 @@ import android.widget.Toast;
 import org.honorato.multistatetogglebutton.MultiStateToggleButton;
 
 import java.util.List;
-import java.util.ArrayList;
 
 import de.lukaskoerfer.hackathonviessmann.data.UserdataLoadTask;
 import de.lukaskoerfer.hackathonviessmann.model.LinearForecastInterpolation;
@@ -26,7 +25,6 @@ import de.lukaskoerfer.hackathonviessmann.model.WeatherForecast;
 import de.lukaskoerfer.hackathonviessmann.ui.PredictionChart;
 import de.lukaskoerfer.hackathonviessmann.db.Database;
 import de.lukaskoerfer.hackathonviessmann.model.UserData;
-import de.lukaskoerfer.hackathonviessmann.model.WeatherForecast;
 import de.lukaskoerfer.hackathonviessmann.data.WeatherLoadTask;
 
 public class MainActivity extends AppCompatActivity {
@@ -60,12 +58,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.item_switch_account:
+            case R.id.item_switch_user:
                 this.switchAccount(true);
                 return true;
             case R.id.item_preferences:
                 Intent preferencesIntent = new Intent(this, PreferenceActivity.class);
                 this.startActivity(preferencesIntent);
+                return true;
+            case R.id.item_history:
+                Intent historyIntent = new Intent(this, HistoryActivity.class);
+                this.startActivity(historyIntent);
+                return true;
+            case R.id.item_rank:
+                Intent rankIntent = new Intent(this, RankActivity.class);
+                this.startActivity(rankIntent);
+                return true;
             default:
                 return false;
         }

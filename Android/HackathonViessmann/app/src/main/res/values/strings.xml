@@ -1,16 +1,5 @@
 <resources>
-    <string name="app_name">Hackathon Viessmann</string>
-
-    <string-array name="locations">
-        <item>Aachen</item>
-        <item>New York</item>
-        <item>Sydney</item>
-    </string-array>
-    <string-array name="location_values">
-        <item>50.775611#6.081238</item>
-        <item>40.7142691#-74.0059729</item>
-        <item>-33.8671390#151.2071140</item>
-    </string-array>
+    <string name="app_name">Eco Heat</string>
 
     <string-array name="modes">
         <item>Standard</item>
