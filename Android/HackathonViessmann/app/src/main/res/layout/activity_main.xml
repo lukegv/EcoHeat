@@ -1,29 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:mstb="http://schemas.android.com/apk/res-auto"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    android:gravity="center"
     tools:context="de.lukaskoerfer.hackathonviessmann.MainActivity">
+        <org.honorato.multistatetogglebutton.MultiStateToggleButton
+            android:id="@+id/mstb_multi_id"
+            android:layout_width="wrap_content"
+            android:layout_height="0dip"
+            android:layout_weight="0.6"
+            android:layout_marginTop="10dip"
+            mstb:values="@array/modes"
+            mstb:mstbPrimaryColor="@color/colorSlider2"
+            mstb:mstbSecondaryColor="@color/colorSlider1"/>
+        <de.lukaskoerfer.hackathonviessmann.ui.PredictionChart
+            android:id="@+id/myLineChart"
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="3"
+            android:layout_margin="20px">
+        </de.lukaskoerfer.hackathonviessmann.ui.PredictionChart>
 
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/myLineChart"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"></com.github.mikephil.charting.charts.LineChart>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="0dip"
+        android:layout_weight="0.4"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Energy Consumption: 100kwH"
+        android:id="@+id/textEnergy"
+        android:layout_gravity="center_horizontal" />
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true">
-
-       <Button
-           android:layout_width="200px"
-           android:layout_height="100px"
-           android:text="asf"/>
-    </LinearLayout>
-</RelativeLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="0dip"
+        android:layout_weight="0.4"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Costs: 24.60 €"
+        android:id="@+id/textCosts"
+        android:layout_gravity="center_horizontal" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="0dip"
+        android:layout_weight="0.4"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Savings: 7.90 €"
+        android:id="@+id/textSavings"
+        android:layout_gravity="center_horizontal" />
+</LinearLayout>

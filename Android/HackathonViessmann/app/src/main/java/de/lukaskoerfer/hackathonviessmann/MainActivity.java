@@ -13,8 +13,14 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.List;
+import java.util.ArrayList;
 
 import de.lukaskoerfer.hackathonviessmann.data.UserdataLoadTask;
+import de.lukaskoerfer.hackathonviessmann.model.LinearForecastInterpolation;
+import de.lukaskoerfer.hackathonviessmann.model.PredictionCalculator;
+import de.lukaskoerfer.hackathonviessmann.model.PredictionDataPoint;
+import de.lukaskoerfer.hackathonviessmann.model.WeatherForecast;
+import de.lukaskoerfer.hackathonviessmann.ui.PredictionChart;
 import de.lukaskoerfer.hackathonviessmann.db.Database;
 import de.lukaskoerfer.hackathonviessmann.model.UserData;
 import de.lukaskoerfer.hackathonviessmann.model.WeatherForecast;
@@ -26,6 +32,32 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_main);
+
+        List<PredictionDataPoint> predictionData = new ArrayList<PredictionDataPoint>();
+        predictionData.add(new PredictionDataPoint(0,18));
+        predictionData.add(new PredictionDataPoint(1,23));
+        predictionData.add(new PredictionDataPoint(2,23));
+        predictionData.add(new PredictionDataPoint(3,23));
+        predictionData.add(new PredictionDataPoint(4,18));
+
+        predictionData.get(0).setTargetTemperature(20);
+        predictionData.get(0).setEnergyConsumption(100);
+
+        predictionData.get(1).setTargetTemperature(20);
+        predictionData.get(1).setEnergyConsumption(100);
+
+        predictionData.get(2).setTargetTemperature(20);
+        predictionData.get(2).setEnergyConsumption(100);
+
+        predictionData.get(3).setTargetTemperature(20);
+        predictionData.get(3).setEnergyConsumption(100);
+
+        predictionData.get(4).setTargetTemperature(20);
+        predictionData.get(4).setEnergyConsumption(100);
+
+
+        PredictionChart myChart = (PredictionChart) findViewById(R.id.myLineChart);
+        myChart.setPredictionData(predictionData);
     }
 
     @Override
@@ -37,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
             this.updateUser();
         }
     }
-
+	
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         this.getMenuInflater().inflate(R.menu.menu_options, menu);
@@ -84,7 +116,18 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateWeather() {
         List<WeatherForecast> weatherForecast = Database.Instance(this).getCurrentWeatherForecast();
-
+		Log.d("Weather forecast", Integer.toString(weatherForecast.size()));
+        for (WeatherForecast element : weatherForecast) {
+            Log.d("Weather forecast", element.toString());
+            System.out.println(LinearForecastInterpolation.stringToSecond(element.getEndTime()));
+        }
+        List<PredictionDataPoint> predictionData = LinearForecastInterpolation.getPredictionPoints(weatherForecast);
+        for(int i=0;i<predictionData.size();i++) {
+            predictionData.get(i).setTargetTemperature(23);
+            predictionData.get(i).setEnergyConsumption(15);
+		}
+		PredictionChart myChart = (PredictionChart) findViewById(R.id.myLineChart);
+        myChart.setPredictionData(predictionData);
     }
 
     private class UserdataLoad extends UserdataLoadTask {
