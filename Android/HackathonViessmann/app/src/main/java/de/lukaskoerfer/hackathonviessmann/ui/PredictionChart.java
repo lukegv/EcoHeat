@@ -62,21 +62,24 @@ public class PredictionChart extends LineChart{
     private void setColors(){
         lineOutsideTemperature.setAxisDependency(YAxis.AxisDependency.LEFT);
         lineOutsideTemperature.setDrawValues(false);
-        lineOutsideTemperature.setColor(Color.RED);
         lineOutsideTemperature.setDrawCircles(false);
         lineOutsideTemperature.setDrawCubic(true);
+        lineOutsideTemperature.setLineWidth(4);
 
         lineTargetTemperature.setAxisDependency(YAxis.AxisDependency.LEFT);
         lineTargetTemperature.setDrawValues(false);
         lineTargetTemperature.setDrawCircles(false);
+        lineTargetTemperature.setLineWidth(4);
 
 
         lineEnergyConsumption.setAxisDependency(YAxis.AxisDependency.LEFT);
         lineEnergyConsumption.setDrawValues(false);
         lineEnergyConsumption.setColor(Color.BLUE);
+        lineEnergyConsumption.setFillAlpha(50);
+        lineEnergyConsumption.setFillColor(Color.BLUE);
         lineEnergyConsumption.setDrawCircles(false);
         lineEnergyConsumption.setDrawFilled(true);
-        lineEnergyConsumption.setDraw
+        lineEnergyConsumption.setLineWidth(0);
         return;
     }
 
