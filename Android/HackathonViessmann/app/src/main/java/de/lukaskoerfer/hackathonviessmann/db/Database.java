@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import de.lukaskoerfer.hackathonviessmann.model.UserData;
 import de.lukaskoerfer.hackathonviessmann.model.WeatherForecast;
 
 /**
@@ -66,7 +67,8 @@ public class Database extends SQLiteOpenHelper {
         return forecast;
     }
 
-    public boolean isWeatherForecastUpToDate(GregorianCalendar datetime) {
+    public boolean isWeatherForecastUpToDate(GregorianCalendar datetime, UserData userData) {
+        SQLiteDatabase db = this.getReadableDatabase();
         return false;
     }
 

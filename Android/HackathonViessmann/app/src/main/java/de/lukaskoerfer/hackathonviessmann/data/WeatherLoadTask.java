@@ -1,10 +1,11 @@
-package de.lukaskoerfer.hackathonviessmann.weather;
+package de.lukaskoerfer.hackathonviessmann.data;
 
 import android.content.Context;
 import android.os.AsyncTask;
 
 import java.util.List;
 
+import de.lukaskoerfer.hackathonviessmann.data.OpenWeather;
 import de.lukaskoerfer.hackathonviessmann.db.Database;
 import de.lukaskoerfer.hackathonviessmann.model.GlobalLocation;
 import de.lukaskoerfer.hackathonviessmann.model.WeatherForecast;

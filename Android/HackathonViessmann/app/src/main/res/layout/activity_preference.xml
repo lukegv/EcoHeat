@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="15dp"
+    tools:context="de.lukaskoerfer.hackathonviessmann.PreferenceActivity">
+
+    <TextView
+        android:textSize="20sp"
+        android:layout_marginBottom="3dp"
+        android:id="@+id/tvDayTemperature"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <io.apptik.widget.MultiSlider
+        android:id="@+id/sliderDayTemperature"
+        app:thumbNumber="1"
+        app:scaleMin="10"
+        app:scaleMax="30"
+        app:scaleStep="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@android:color/darker_gray"/>
+
+    <TextView
+        android:textSize="20sp"
+        android:layout_marginBottom="3dp"
+        android:id="@+id/tvNightTemperature"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <io.apptik.widget.MultiSlider
+        android:id="@+id/sliderNightTemperature"
+        app:thumbNumber="1"
+        app:scaleMin="10"
+        app:scaleMax="30"
+        app:scaleStep="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@android:color/darker_gray"/>
+
+    <TextView
+        android:lines="2"
+        android:textSize="20sp"
+        android:layout_marginBottom="3dp"
+        android:id="@+id/tvWeekTimes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <io.apptik.widget.MultiSlider
+        android:id="@+id/sliderWeekTimes"
+        app:thumbNumber="2"
+        app:scaleMin="0"
+        app:scaleMax="1440"
+        app:scaleStep="30"
+        app:range1="@drawable/multislider_scrubber_track_holo_light"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@android:color/darker_gray"/>
+
+    <TextView
+        android:lines="2"
+        android:textSize="20sp"
+        android:id="@+id/tvWeekendTimes"
+        android:layout_marginBottom="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <io.apptik.widget.MultiSlider
+        android:id="@+id/sliderWeekendTimes"
+        app:thumbNumber="2"
+        app:scaleMin="0"
+        app:scaleMax="1440"
+        app:scaleStep="30"
+        app:range1="@drawable/multislider_scrubber_track_holo_light"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+
+</LinearLayout>

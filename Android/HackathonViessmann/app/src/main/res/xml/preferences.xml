@@ -6,10 +6,5 @@
         android:title="Username"
         android:key="pref_username" ></EditTextPreference>
 
-    <ListPreference
-        android:title="Location"
-        android:entries="@array/locations"
-        android:entryValues="@array/location_values"
-        android:key="pref_location" ></ListPreference>
 
 </PreferenceScreen>

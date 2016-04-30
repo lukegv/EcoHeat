@@ -26,4 +26,9 @@ public class GlobalLocation {
     public double getLongitude() {
         return this.Longitude;
     }
+
+    @Override
+    public String toString() {
+        return Double.toString(this.Latitude) + "#" + Double.toString(this.Longitude);
+    }
 }

@@ -1,4 +1,4 @@
-package de.lukaskoerfer.hackathonviessmann.weather;
+package de.lukaskoerfer.hackathonviessmann.data;
 
 import android.util.Log;
 

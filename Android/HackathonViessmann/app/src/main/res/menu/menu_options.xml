@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/item_settings"
-        android:title="Settings">
+        android:id="@+id/item_switch_account"
+        android:title="Switch account">
+    </item>
+    <item
+        android:id="@+id/item_preferences"
+        android:title="Preferences">
     </item>
 </menu>
