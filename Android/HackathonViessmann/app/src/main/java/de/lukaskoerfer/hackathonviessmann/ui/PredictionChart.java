@@ -1,6 +1,7 @@
 package de.lukaskoerfer.hackathonviessmann.ui;
 
 import android.graphics.Color;
+import android.util.Log;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.YAxis;
@@ -77,6 +78,7 @@ public class PredictionChart extends LineChart{
         energyComsumptions.clear();
         timeStamps.clear();
 
+        Log.d("PChart","setPRedData");
         Integer index = 0;
 
         for(PredictionDataPoint point: predictionData) {

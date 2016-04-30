@@ -14,6 +14,8 @@ public class PredictionDataPoint {
     public PredictionDataPoint(float time, float outsideTemperature){
         this.outsideTemperature = outsideTemperature;
         this.time = time;
+        this.energyConsumption = 0;
+        this.targetTemperature = 15;
     }
 
     public void setTargetTemperature(float targetTemperature){
