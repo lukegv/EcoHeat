@@ -18,9 +18,13 @@ public class PredictionCalculator {
         for (int i=0; i<n; i++) { TemperatureDifference[i]=(predictionData.get(i).getTargetTemperature() - predictionData.get(i).getOutsideTemperature());}
 
         float[] deriv_TemperatureDifference = new float[n];
+        float timeStep;
         deriv_TemperatureDifference[0] = 0;
         deriv_TemperatureDifference[n-1] = 0;
-        for (int i=1; i<n-1; i++) { deriv_TemperatureDifference[i]= (TemperatureDifference[i+1] - TemperatureDifference[i-1])/2;}
+        for (int i=1; i<n-1; i++) {
+            timeStep = predictionData.get(i).getTime() - predictionData.get(i-1).getTime();
+            deriv_TemperatureDifference[i]= (TemperatureDifference[i+1] - TemperatureDifference[i-1])/(2);
+        }
 
         float accumulatedEnergy = 0;
         float temp = 0;

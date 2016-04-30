@@ -11,17 +11,21 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.honorato.multistatetogglebutton.MultiStateToggleButton;
 import org.honorato.multistatetogglebutton.ToggleButton;
 
+import java.text.NumberFormat;
 import java.util.List;
 
 import de.lukaskoerfer.hackathonviessmann.data.UserdataLoadTask;
+import de.lukaskoerfer.hackathonviessmann.model.HeatingPattern;
 import de.lukaskoerfer.hackathonviessmann.model.LinearForecastInterpolation;
 import de.lukaskoerfer.hackathonviessmann.model.PredictionCalculator;
 import de.lukaskoerfer.hackathonviessmann.model.PredictionDataPoint;
+import de.lukaskoerfer.hackathonviessmann.model.UserPreferences;
 import de.lukaskoerfer.hackathonviessmann.model.WeatherForecast;
 import de.lukaskoerfer.hackathonviessmann.ui.PredictionChart;
 import de.lukaskoerfer.hackathonviessmann.db.Database;
@@ -32,15 +36,19 @@ public class MainActivity extends AppCompatActivity {
 
     PredictionChart myChart;
     List<PredictionDataPoint> predictionData;
+    MultiStateToggleButton stateToggle;
+    TextView textEnergy;
+    TextView textCosts;
+    TextView textSavings;
+    Float standardEnergyConsumption;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_main);
 
-        MultiStateToggleButton stateToggle = (MultiStateToggleButton) findViewById(R.id.stateToggle);
-        boolean[] startingStates = {true,false,false};
-        stateToggle.setStates(startingStates);
+        stateToggle = (MultiStateToggleButton) findViewById(R.id.stateToggle);
+        stateToggle.setValue(0);
         stateToggle.setOnValueChangedListener(new ToggleButton.OnValueChangedListener() {
             @Override
             public void onValueChanged(int value) {
@@ -51,6 +59,10 @@ public class MainActivity extends AppCompatActivity {
         myChart = (PredictionChart) findViewById(R.id.myLineChart);
         myChart.setScaleEnabled(false);
         myChart.setDrawMarkerViews(false);
+
+        textEnergy = (TextView) findViewById(R.id.textEnergy);
+        textCosts = (TextView) findViewById(R.id.textCosts);
+        textSavings = (TextView) findViewById(R.id.textSavings);
     }
 
     @Override
@@ -132,16 +144,36 @@ public class MainActivity extends AppCompatActivity {
     private void handleWeather() {
         List<WeatherForecast> weatherForecast = Database.Instance(this).getCurrentWeatherForecast();
         predictionData = LinearForecastInterpolation.getPredictionPoints(weatherForecast);
-        updateChart();
+        stateToggle.setValue(0);
     }
 
     private void updateChart(){
-        for(int i=0;i<predictionData.size();i++) {
-            predictionData.get(i).setTargetTemperature(23);
-            predictionData.get(i).setEnergyConsumption(0.0015f);
+        switch (stateToggle.getValue()){
+            case 0:HeatingPattern.setNormalMode(predictionData,this);
+                    break;
+            case 1:HeatingPattern.setEcoMode(predictionData,this);
+                    break;
+            case 2:HeatingPattern.setEcoPlusMode(predictionData,this);
+                    break;
         }
-        PredictionCalculator.predictEnergyConsumption(predictionData,0.002f,0.004f,5);
+        Log.d("WERT",String.valueOf(stateToggle.getValue()));
+        UserData userData= UserData.FromSettings(this);
+
+        float energyConsumption;
+        energyConsumption = PredictionCalculator.predictEnergyConsumption(predictionData,userData.getConst_Prop(),userData.getConst_Deriv(),5);
+
         myChart.setPredictionData(predictionData);
+        if (stateToggle.getValue()==0) standardEnergyConsumption = energyConsumption;
+        NumberFormat formatter = NumberFormat.getNumberInstance();
+        formatter.setMinimumFractionDigits(2);
+        formatter.setMaximumFractionDigits(2);
+
+        float energyPrice = UserPreferences.FromSettings(this).getEnergyPrice();
+
+        textEnergy.setText("Energy Consumption: " + formatter.format(energyConsumption) + " kWh");
+        textCosts.setText("Costs: " + formatter.format(energyConsumption * energyPrice) + " €");
+        String savingsString = (standardEnergyConsumption == energyConsumption) ? "-,--" : formatter.format((standardEnergyConsumption - energyConsumption) * energyPrice);
+        textSavings.setText("Savings: " + savingsString + " €");
     }
 
     private class UserdataLoad extends UserdataLoadTask {
