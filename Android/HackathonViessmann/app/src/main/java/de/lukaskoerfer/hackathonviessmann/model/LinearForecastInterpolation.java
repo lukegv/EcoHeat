@@ -40,14 +40,21 @@ public class LinearForecastInterpolation {
 
                 double interpolatedTemp;
                 if ( (startTime < curTime) && (curTime < endTime)) {
+
                     if ( curTime < midTime ) {
-                        float startTimeMinus = stringToSecond(weatherData.get(j-1).getStartTime());
+                        float startTimeMinus;
+                        if (j-1 >= 0) {
+                            startTimeMinus = stringToSecond(weatherData.get(j - 1).getStartTime());
                         float endTimeMinus = stringToSecond(weatherData.get(j-1).getEndTime());
                         float midTimeMinus = (startTimeMinus + endTimeMinus) /2;
 
                         float ratio = 1 - (midTime - curTime) / (midTime - midTimeMinus);
                         float ratioM = 1 - (curTime - midTimeMinus) / (midTime - midTimeMinus);
                         interpolatedTemp =  (weatherData.get(j).getAvgTemperature() * ratio +  weatherData.get(j-1).getAvgTemperature() * ratioM);
+                        }
+                        else{
+                            interpolatedTemp = weatherData.get(j).getAvgTemperature();
+                        }
                         interpolatedPoints.add( (float) interpolatedTemp);
                         break;
                     }
