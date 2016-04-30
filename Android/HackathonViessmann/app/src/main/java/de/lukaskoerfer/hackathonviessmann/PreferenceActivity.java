@@ -54,7 +54,7 @@ public class PreferenceActivity extends AppCompatActivity {
             public void onValueChanged(MultiSlider multiSlider, MultiSlider.Thumb thumb, int thumbIndex, int value) {
                 String startTimePres = TimePresentation(multiSlider.getThumb(0).getValue());
                 String endTimePres = TimePresentation(multiSlider.getThumb(1).getValue());
-                String presentation = "During the week day timespan: \n" + startTimePres + " to " + endTimePres;
+                String presentation = "During the week daytime: \n" + startTimePres + " to " + endTimePres;
                 tvWeekTimes.setText(presentation);
             }
         });
@@ -64,7 +64,7 @@ public class PreferenceActivity extends AppCompatActivity {
             public void onValueChanged(MultiSlider multiSlider, MultiSlider.Thumb thumb, int thumbIndex, int value) {
                 String startTimePres = TimePresentation(multiSlider.getThumb(0).getValue());
                 String endTimePres = TimePresentation(multiSlider.getThumb(1).getValue());
-                String presentation = "On weekend day timespan: \n" + startTimePres + " to " + endTimePres;
+                String presentation = "On weekend daytime: \n" + startTimePres + " to " + endTimePres;
                 tvWeekendTimes.setText(presentation);
             }
         });
