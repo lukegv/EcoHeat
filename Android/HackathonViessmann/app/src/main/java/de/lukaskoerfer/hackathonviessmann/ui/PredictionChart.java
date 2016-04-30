@@ -61,8 +61,11 @@ public class PredictionChart extends LineChart{
 
         this.setPinchZoom(false);
         this.setDoubleTapToZoomEnabled(false);
-
-
+        this.getAxisLeft().setDrawGridLines(false);
+        this.getAxisRight().setDrawGridLines(false);
+        this.getXAxis().setDrawGridLines(false);
+        this.setDrawMarkerViews(false);
+        this.setDescription("");
     }
 
     private void setColors(){
@@ -72,13 +75,14 @@ public class PredictionChart extends LineChart{
         lineOutsideTemperature.setDrawCubic(true);
         lineOutsideTemperature.setLineWidth(4);
         lineOutsideTemperature.setColor(R.color.colorPrimary);
-        lineOutsideTemperature.setHighlightEnabled(false);
+
 
         lineTargetTemperature.setAxisDependency(YAxis.AxisDependency.LEFT);
         lineTargetTemperature.setDrawValues(false);
         lineTargetTemperature.setDrawCircles(false);
         lineTargetTemperature.setLineWidth(4);
         lineOutsideTemperature.setColor(Color.BLACK);
+
 
 
         lineEnergyConsumption.setAxisDependency(YAxis.AxisDependency.LEFT);
@@ -89,6 +93,7 @@ public class PredictionChart extends LineChart{
         lineEnergyConsumption.setDrawCircles(false);
         lineEnergyConsumption.setDrawFilled(true);
         lineEnergyConsumption.setLineWidth(0);
+
         return;
     }
 
@@ -110,7 +115,7 @@ public class PredictionChart extends LineChart{
             index++;
         }
 
-        lineOutsideTemperature = new LineDataSet(outsideTemperatures, "Temperatur in °C");
+        lineOutsideTemperature = new LineDataSet(outsideTemperatures, "Temperature in °C");
 
         lineTargetTemperature = new LineDataSet(targetTemperatures, "Target in °C");
 
