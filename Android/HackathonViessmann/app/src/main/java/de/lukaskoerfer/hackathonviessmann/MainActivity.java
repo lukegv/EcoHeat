@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if (!UserData.IsUserLoggedIn(this)) {
-            this.switchAccount();
+            this.switchAccount(false);
         } else {
             this.handleUser(false);
         }
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.item_switch_account:
-                this.switchAccount();
+                this.switchAccount(true);
                 return true;
             case R.id.item_preferences:
                 Intent preferencesIntent = new Intent(this, PreferenceActivity.class);
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void switchAccount() {
+    public void switchAccount(final boolean cancelable) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("EcoHeat login");
         View view = this.getLayoutInflater().inflate(R.layout.dialog_login, null);
@@ -82,6 +82,16 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 String enteredUsername = etUsername.getText().toString();
                 (new UserdataLoad()).execute(enteredUsername);
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (cancelable) {
+                    dialog.dismiss();
+                } else {
+                    MainActivity.this.finish();
+                }
             }
         });
         builder.setCancelable(false);
@@ -136,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
                 MainActivity.this.handleUser(true);
             } else {
                 Toast.makeText(MainActivity.this, "User does not exist!", Toast.LENGTH_SHORT).show();
-                MainActivity.this.switchAccount();
+                MainActivity.this.switchAccount(UserData.IsUserLoggedIn(this.context));
             }
             super.onPostExecute(userData);
         }
