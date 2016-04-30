@@ -11,4 +11,10 @@
         <item>40.7142691#-74.0059729</item>
         <item>-33.8671390#151.2071140</item>
     </string-array>
+
+    <string-array name="modes">
+        <item>Standard</item>
+        <item>Eco</item>
+        <item>Eco-Plus</item>
+    </string-array>
 </resources>

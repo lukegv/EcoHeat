@@ -12,14 +12,14 @@ import java.util.List;
  * */
 public class PredictionCalculator {
 
-    public void predictEnergyConsumption (List<PredictionDataPoint> predictionData, float a, float b ){
+    public static void predictEnergyConsumption (List<PredictionDataPoint> predictionData, float a, float b ){
         int n =predictionData.size();
         float[] TemperatureDifference = new float[n];
         for (int i=0; i<n; i=i+1) { TemperatureDifference[i]=(predictionData.get(i).getTargetTemperature() - predictionData.get(i).getOutsideTemperature());}
 
         float[] deriv_TemperatureDifference = new float[n];
         deriv_TemperatureDifference[0] = 0;
-        deriv_TemperatureDifference[n] = 0;
+        deriv_TemperatureDifference[n-1] = 0;
         for (int i=1; i<n-1; i=i+1) { deriv_TemperatureDifference[i]= (TemperatureDifference[i+1] - TemperatureDifference[i-1])/2;}
 
         for (int i=0; i<n; i=i+1) {
