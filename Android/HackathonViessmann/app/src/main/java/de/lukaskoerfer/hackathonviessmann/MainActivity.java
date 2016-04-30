@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         if (!UserData.IsUserLoggedIn(this)) {
             this.switchAccount();
         } else {
-            this.updateUser();
+            this.handleUser(false);
         }
     }
 	
@@ -108,14 +108,16 @@ public class MainActivity extends AppCompatActivity {
         builder.create().show();
     }
 
-    private void updateUser() {
+    private void handleUser(boolean changed) {
         UserData userData = UserData.FromSettings(this);
-        if (!Database.Instance(this).isWeatherForecastUpToDate(null, userData)) {
-
+        if (changed || !Database.Instance(this).isWeatherForecastUpToDate()) {
+            (new WeatherLoad()).execute(userData.getLocation());
+        } else {
+            this.handleWeather();
         }
     }
 
-    private void updateWeather() {
+    private void handleWeather() {
         List<WeatherForecast> weatherForecast = Database.Instance(this).getCurrentWeatherForecast();
 		Log.d("Weather forecast", Integer.toString(weatherForecast.size()));
         for (WeatherForecast element : weatherForecast) {
@@ -151,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
             this.progressDialog.dismiss();
             if (UserData.IsValid(userData)) {
                 userData.Save(this.context);
-                MainActivity.this.updateUser();
+                MainActivity.this.handleUser(true);
             } else {
                 Toast.makeText(MainActivity.this, "User does not exist!", Toast.LENGTH_SHORT).show();
                 MainActivity.this.switchAccount();
@@ -170,14 +172,14 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            this.progressDialog = ProgressDialog.show(this.context, "Loading weather forecast", "Please wait ...", true, false);
+            this.progressDialog = ProgressDialog.show(this.context, "Loading weather data", "Please wait ...", true, false);
             super.onPreExecute();
         }
 
         @Override
         protected void onPostExecute(Void v) {
             this.progressDialog.dismiss();
-            MainActivity.this.updateWeather();
+            MainActivity.this.handleWeather();
             super.onPostExecute(v);
         }
     }

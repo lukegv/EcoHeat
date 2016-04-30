@@ -67,8 +67,9 @@ public class Database extends SQLiteOpenHelper {
         return forecast;
     }
 
-    public boolean isWeatherForecastUpToDate(GregorianCalendar datetime, UserData userData) {
+    public boolean isWeatherForecastUpToDate() {
         SQLiteDatabase db = this.getReadableDatabase();
+
         return false;
     }
 

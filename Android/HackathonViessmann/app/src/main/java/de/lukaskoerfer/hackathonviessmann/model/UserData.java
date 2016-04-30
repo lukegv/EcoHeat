@@ -76,8 +76,8 @@ public class UserData {
         return Const_Deriv;
     }
 
-    public String getLocationString() {
-        return LocationString;
+    public GlobalLocation getLocation() {
+        return new GlobalLocation(this.LocationString);
     }
 
     public int getHouseId() {
