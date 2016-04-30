@@ -6,4 +6,6 @@
         <item>Eco</item>
         <item>Eco-Plus</item>
     </string-array>
+
+    <string name="rankDescription">The more energy you save through our innovative heating solutions, the better for the environment. This tree will thank you by growing one leaf for each MWh of energy you save, compared to the default heating setting.</string>
 </resources>
