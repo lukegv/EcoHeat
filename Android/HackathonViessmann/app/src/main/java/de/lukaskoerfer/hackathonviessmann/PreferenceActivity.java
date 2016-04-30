@@ -14,11 +14,13 @@ public class PreferenceActivity extends AppCompatActivity {
     private TextView tvNightTemperature;
     private TextView tvWeekTimes;
     private TextView tvWeekendTimes;
+    private TextView tvEnergyPrice;
 
     private MultiSlider sliderDayTemperature;
     private MultiSlider sliderNightTemperature;
     private MultiSlider sliderWeekTimes;
     private MultiSlider sliderWeekendTimes;
+    private MultiSlider sliderEnergyPrice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,8 @@ public class PreferenceActivity extends AppCompatActivity {
         this.tvNightTemperature = (TextView) findViewById(R.id.tvNightTemperature);
         this.tvWeekTimes = (TextView) findViewById(R.id.tvWeekTimes);
         this.tvWeekendTimes = (TextView) findViewById(R.id.tvWeekendTimes);
+        this.tvEnergyPrice = (TextView) findViewById(R.id.tvEnergyPrice);
+
         this.sliderDayTemperature = (MultiSlider) findViewById(R.id.sliderDayTemperature);
         this.sliderDayTemperature.setOnThumbValueChangeListener(new MultiSlider.OnThumbValueChangeListener() {
             @Override
@@ -64,6 +68,14 @@ public class PreferenceActivity extends AppCompatActivity {
                 tvWeekendTimes.setText(presentation);
             }
         });
+        this.sliderEnergyPrice = (MultiSlider) findViewById(R.id.sliderEnergyPrice);
+        this.sliderEnergyPrice.setOnThumbValueChangeListener(new MultiSlider.OnThumbValueChangeListener() {
+            @Override
+            public void onValueChanged(MultiSlider multiSlider, MultiSlider.Thumb thumb, int thumbIndex, int value) {
+                String presentation = "Energy Price: " + String.format("%.3f", ((float)value / 1000f)) + " € / kWh";
+                tvEnergyPrice.setText(presentation);
+            }
+        });
     }
 
     @Override
@@ -76,6 +88,7 @@ public class PreferenceActivity extends AppCompatActivity {
         this.sliderWeekTimes.getThumb(1).setValue(userPreferences.getWeekDayEnd());
         this.sliderWeekendTimes.getThumb(0).setValue(userPreferences.getWeekendDayStart());
         this.sliderWeekendTimes.getThumb(1).setValue(userPreferences.getWeekendDayEnd());
+        this.sliderEnergyPrice.getThumb(0).setValue((int) (userPreferences.getEnergyPrice() * 1000));
     }
 
     @Override
@@ -88,6 +101,7 @@ public class PreferenceActivity extends AppCompatActivity {
         userPreferences.setWeekDayEnd(this.sliderWeekTimes.getThumb(1).getValue());
         userPreferences.setWeekendDayStart(this.sliderWeekendTimes.getThumb(0).getValue());
         userPreferences.setWeekendDayEnd(this.sliderWeekendTimes.getThumb(1).getValue());
+        userPreferences.setEnergyPrice((float)this.sliderEnergyPrice.getThumb(0).getValue() / 1000);
         userPreferences.Save(this);
     }
 

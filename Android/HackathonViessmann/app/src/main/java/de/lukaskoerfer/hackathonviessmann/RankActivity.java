@@ -7,13 +7,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import de.lukaskoerfer.hackathonviessmann.model.UserData;
+
 public class RankActivity extends AppCompatActivity {
 
     ImageView image;
     TextView text;
-    int level = 7;
-    final int maxlevel = 22;
-    final int minlevel = 0;
+
     int[] treePics  = {R.mipmap.tree_leaves_0, R.mipmap.tree_leaves_1, R.mipmap.tree_leaves_2,
             R.mipmap.tree_leaves_3,R.mipmap.tree_leaves_4,R.mipmap.tree_leaves_5,
             R.mipmap.tree_leaves_6,R.mipmap.tree_leaves_7, R.mipmap.tree_leaves_8,
@@ -26,28 +26,17 @@ public class RankActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rank);
+        this.setContentView(R.layout.activity_rank);
 
         image = (ImageView) findViewById(R.id.treeImageView);
         text = (TextView)  findViewById(R.id.rankScoreTextView);
 
-        updateView();
-
-        image.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v) {
-                Log.d("RankActivity", "click on image");
-                level++;
-                if(level > maxlevel)
-                    level = minlevel;
-                updateView();
-            }
-        });
-
-
     }
 
-    void updateView() {
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        int level = UserData.FromSettings(this).getScore();
         image.setImageResource(treePics[level]);
         text.setText("Score: " + Integer.toString(level));
     }

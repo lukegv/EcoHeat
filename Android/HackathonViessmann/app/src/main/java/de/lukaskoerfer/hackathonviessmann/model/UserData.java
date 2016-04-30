@@ -17,6 +17,7 @@ public class UserData {
     private float Const_Deriv;
     private String LocationString;
     private int HouseId;
+    private int Score;
 
     private UserData() {
     }
@@ -28,6 +29,7 @@ public class UserData {
             this.Const_Prop = Float.parseFloat(xml_element.getAttribute("const_prop"));
             this.Const_Deriv = Float.parseFloat(xml_element.getAttribute("const_deriv"));
             this.LocationString = xml_element.getAttribute("longlat");
+            this.Score = Integer.parseInt(xml_element.getAttribute("score"));
         } else {
             this.Username = "";
         }
@@ -41,6 +43,7 @@ public class UserData {
         editor.putFloat("pref_const_deriv", this.Const_Deriv);
         editor.putString("pref_location_string", this.LocationString);
         editor.putInt("pref_house_id", this.HouseId);
+        editor.putInt("pref_score", this.Score);
         editor.commit();
     }
 
@@ -52,6 +55,7 @@ public class UserData {
         data.Const_Deriv = preferences.getFloat("pref_const_deriv", 0);
         data.LocationString = preferences.getString("pref_location_string", "");
         data.HouseId = preferences.getInt("pref_house_id", 0);
+        data.Score = preferences.getInt("pref_score", 0);
         return data;
     }
 
@@ -82,5 +86,8 @@ public class UserData {
 
     public int getHouseId() {
         return HouseId;
+    }
+
+    public int getScore() { return this.Score;
     }
 }

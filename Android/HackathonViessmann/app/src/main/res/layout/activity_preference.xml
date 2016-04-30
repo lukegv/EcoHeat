@@ -22,6 +22,8 @@
         app:scaleMin="10"
         app:scaleMax="30"
         app:scaleStep="1"
+        app:rangeColor="@android:color/darker_gray"
+        app:thumbColor="@android:color/darker_gray"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -45,6 +47,8 @@
         app:scaleMin="10"
         app:scaleMax="30"
         app:scaleStep="1"
+        app:rangeColor="@android:color/background_dark"
+        app:thumbColor="@android:color/background_dark"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -70,6 +74,8 @@
         app:scaleMax="1440"
         app:scaleStep="30"
         app:range1="@drawable/multislider_scrubber_track_holo_light"
+        app:rangeColor="@color/colorPrimary"
+        app:thumbColor="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -95,9 +101,35 @@
         app:scaleMax="1440"
         app:scaleStep="30"
         app:range1="@drawable/multislider_scrubber_track_holo_light"
+        app:rangeColor="@color/colorPrimary"
+        app:thumbColor="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@android:color/darker_gray"/>
 
+    <TextView
+        android:lines="1"
+        android:textSize="20sp"
+        android:id="@+id/tvEnergyPrice"
+        android:layout_marginBottom="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <io.apptik.widget.MultiSlider
+        android:id="@+id/sliderEnergyPrice"
+        app:thumbNumber="1"
+        app:scaleMin="40"
+        app:scaleMax="80"
+        app:scaleStep="1"
+        app:rangeColor="@color/colorAccent"
+        app:thumbColor="@color/colorAccent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

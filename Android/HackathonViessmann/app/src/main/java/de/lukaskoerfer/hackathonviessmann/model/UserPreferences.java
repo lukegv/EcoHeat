@@ -17,6 +17,8 @@ public class UserPreferences {
     private int WeekendDayStart;
     private int WeekendDayEnd;
 
+    private float EnergyPrice;
+
     private UserPreferences() {
 
     }
@@ -30,6 +32,7 @@ public class UserPreferences {
         editor.putInt("pref_week_day_end", this.WeekDayEnd);
         editor.putInt("pref_weekend_day_start", this.WeekendDayStart);
         editor.putInt("pref_weekend_day_end", this.WeekendDayEnd);
+        editor.putFloat("pref_energy_price", this.EnergyPrice);
         editor.commit();
     }
 
@@ -42,6 +45,7 @@ public class UserPreferences {
         userPreferences.WeekDayEnd = preferences.getInt("pref_week_day_end", 1260);
         userPreferences.WeekendDayStart = preferences.getInt("pref_weekend_day_start", 540);
         userPreferences.WeekendDayEnd = preferences.getInt("pref_weekend_day_end", 1380);
+        userPreferences.EnergyPrice = preferences.getFloat("pref_energy_price", 0.05f);
         return userPreferences;
     }
 
@@ -92,5 +96,13 @@ public class UserPreferences {
 
     public void setWeekendDayEnd(int weekendDayEnd) {
         WeekendDayEnd = weekendDayEnd;
+    }
+
+    public float getEnergyPrice() {
+        return this.EnergyPrice;
+    }
+
+    public void setEnergyPrice(float energyPrice) {
+        this.EnergyPrice = energyPrice;
     }
 }
