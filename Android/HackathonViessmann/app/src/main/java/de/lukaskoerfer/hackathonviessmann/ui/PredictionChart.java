@@ -8,6 +8,8 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.FillFormatter;
+import com.github.mikephil.charting.interfaces.dataprovider.LineDataProvider;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 import java.util.ArrayList;
@@ -20,6 +22,7 @@ import de.lukaskoerfer.hackathonviessmann.model.WeatherForecast;
 /**
  * Created by Philipp on 29.04.2016.
  */
+
 public class PredictionChart extends LineChart{
 
     private ArrayList<Entry> outsideTemperatures;
@@ -69,6 +72,7 @@ public class PredictionChart extends LineChart{
         this.setTouchEnabled(false);
         this.setDescription("");
     }
+
 
     private void setColors(){
         lineOutsideTemperature.setAxisDependency(YAxis.AxisDependency.LEFT);
@@ -120,7 +124,7 @@ public class PredictionChart extends LineChart{
 
         lineTargetTemperature = new LineDataSet(targetTemperatures, "Target in °C");
 
-        lineEnergyConsumption = new LineDataSet(energyComsumptions, "Energy");
+        lineEnergyConsumption = new LineDataSet(energyComsumptions, "Energy Consumption");
 
         setColors();
 
