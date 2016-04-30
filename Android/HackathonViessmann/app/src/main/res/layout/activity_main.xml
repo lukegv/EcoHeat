@@ -33,7 +33,7 @@
         android:layout_height="0dip"
         android:layout_weight="0.4"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Energy Consumption: 100kwH"
+        android:text="Energy Consumption: -- kWh"
         android:id="@+id/textEnergy"
         android:layout_gravity="center_horizontal" />
 
@@ -42,7 +42,7 @@
         android:layout_height="0dip"
         android:layout_weight="0.4"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Costs: 24.60 €"
+        android:text="Costs: -,-- €"
         android:id="@+id/textCosts"
         android:layout_gravity="center_horizontal" />
     <TextView
@@ -50,7 +50,7 @@
         android:layout_height="0dip"
         android:layout_weight="0.4"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Savings: 7.90 €"
+        android:text="Savings: -,-- €"
         android:id="@+id/textSavings"
         android:layout_gravity="center_horizontal" />
 </LinearLayout>
