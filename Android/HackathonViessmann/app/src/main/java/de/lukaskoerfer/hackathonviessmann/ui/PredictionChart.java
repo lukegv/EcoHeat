@@ -76,6 +76,7 @@ public class PredictionChart extends LineChart{
         lineEnergyConsumption.setColor(Color.BLUE);
         lineEnergyConsumption.setDrawCircles(false);
         lineEnergyConsumption.setDrawFilled(true);
+        lineEnergyConsumption.setDraw
         return;
     }
 
