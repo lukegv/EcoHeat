@@ -31,6 +31,7 @@ public class PredictionCalculator {
         for (int i=0; i<n; i++) {
             temp += (a * TemperatureDifference[i] + b * deriv_TemperatureDifference[i]);
             if (((i % integrationInterval)== 0)&&(i != 0)) {
+                if ( temp < 0) temp = 0;
                 for (int j=0; j<integrationInterval; j++){predictionData.get(i-j).setEnergyConsumption(temp);}
                 accumulatedEnergy += temp;
                 temp = 0;

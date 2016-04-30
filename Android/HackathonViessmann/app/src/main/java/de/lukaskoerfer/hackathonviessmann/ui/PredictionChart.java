@@ -65,6 +65,7 @@ public class PredictionChart extends LineChart{
         this.getAxisRight().setDrawGridLines(false);
         this.getAxisRight().setEnabled(false);
         this.getXAxis().setDrawGridLines(false);
+        this.getXAxis().setLabelsToSkip(10);
         this.setTouchEnabled(false);
         this.setDescription("");
     }
