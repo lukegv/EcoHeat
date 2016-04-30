@@ -3,7 +3,11 @@ package de.lukaskoerfer.hackathonviessmann.model;
 import android.content.Context;
 import android.util.Log;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Eugen on 30.04.2016.
@@ -16,16 +20,29 @@ public class HeatingPattern {
         float time = System.currentTimeMillis();
         float help = time/(1000*60*60*24);
         float help2 = help%7;
-        Log.d("HeatPAt",String.valueOf(help) + " end:" + String.valueOf(help2));
         float temp;
         for (int i=0;i<n;i++) {
             temp = (predictionData.get(i).getTime()+time/1000) %(60*60*24);
-            if ( temp <= prefs.getWeekDayStart()*60 || temp >= prefs.getWeekDayEnd()*60) {
-                predictionData.get(i).setTargetTemperature(prefs.getNightTemperature());
+            Calendar calender=Calendar.getInstance();
+            calender.add(Calendar.SECOND,(int) predictionData.get(i).getTime());
+            if (calender.getTime().getDay() == 6 || calender.getTime().getDay() == 7)
+            {
+                if ( temp <= prefs.getWeekendDayStart()*60 || temp >= prefs.getWeekendDayEnd()*60) {
+                    predictionData.get(i).setTargetTemperature(prefs.getNightTemperature());
+                }
+                else{
+                    predictionData.get(i).setTargetTemperature(prefs.getDayTemperature());
+                }
             }
             else{
-                predictionData.get(i).setTargetTemperature(prefs.getDayTemperature());
+                if ( temp <= prefs.getWeekDayStart()*60 || temp >= prefs.getWeekDayEnd()*60) {
+                    predictionData.get(i).setTargetTemperature(prefs.getNightTemperature());
+                }
+                else{
+                    predictionData.get(i).setTargetTemperature(prefs.getDayTemperature());
+                }
             }
+
         }
     }
 
@@ -33,18 +50,31 @@ public class HeatingPattern {
         UserPreferences prefs = UserPreferences.FromSettings(context);
         int n = predictionData.size();
         float time = System.currentTimeMillis();
+        float help = time/(1000*60*60*24);
+        float help2 = help%7;
         float temp;
         for (int i=0;i<n;i++) {
             temp = (predictionData.get(i).getTime()+time/1000) %(60*60*24);
-            Log.d("HeatPAt",String.valueOf(prefs.getWeekDayStart()*60) + " end:" + String.valueOf(prefs.getWeekDayEnd()*60));
-            if ( temp <= prefs.getWeekDayStart()*60 || temp >= prefs.getWeekDayEnd()*60) {
-                predictionData.get(i).setTargetTemperature(prefs.getNightTemperature()-1f);
-                Log.d("HeatPAt","night");
+            Calendar calender=Calendar.getInstance();
+            calender.add(Calendar.SECOND,(int) predictionData.get(i).getTime());
+            if (calender.getTime().getDay() == 6 || calender.getTime().getDay() == 7)
+            {
+                if ( temp <= prefs.getWeekendDayStart()*60 || temp >= prefs.getWeekendDayEnd()*60) {
+                    predictionData.get(i).setTargetTemperature(prefs.getNightTemperature()-1);
+                }
+                else{
+                    predictionData.get(i).setTargetTemperature(prefs.getDayTemperature()-1);
+                }
             }
             else{
-                predictionData.get(i).setTargetTemperature(prefs.getDayTemperature()-1f);
-                Log.d("HeatPAt","day");
+                if ( temp <= prefs.getWeekDayStart()*60 || temp >= prefs.getWeekDayEnd()*60) {
+                    predictionData.get(i).setTargetTemperature(prefs.getNightTemperature()-1);
+                }
+                else{
+                    predictionData.get(i).setTargetTemperature(prefs.getDayTemperature()-1);
+                }
             }
+
         }
     }
 
