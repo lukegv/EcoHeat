@@ -13,6 +13,7 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.lukaskoerfer.hackathonviessmann.R;
 import de.lukaskoerfer.hackathonviessmann.model.PredictionDataPoint;
 import de.lukaskoerfer.hackathonviessmann.model.WeatherForecast;
 
@@ -57,6 +58,9 @@ public class PredictionChart extends LineChart{
 
 
         dataSets = new ArrayList<ILineDataSet>();
+
+
+        this.setDrawGridBackground(false);
     }
 
     private void setColors(){
@@ -65,18 +69,20 @@ public class PredictionChart extends LineChart{
         lineOutsideTemperature.setDrawCircles(false);
         lineOutsideTemperature.setDrawCubic(true);
         lineOutsideTemperature.setLineWidth(4);
+        lineOutsideTemperature.setColor(R.color.colorPrimary);
 
         lineTargetTemperature.setAxisDependency(YAxis.AxisDependency.LEFT);
         lineTargetTemperature.setDrawValues(false);
         lineTargetTemperature.setDrawCircles(false);
         lineTargetTemperature.setLineWidth(4);
+        lineOutsideTemperature.setColor(Color.BLACK);
 
 
         lineEnergyConsumption.setAxisDependency(YAxis.AxisDependency.LEFT);
         lineEnergyConsumption.setDrawValues(false);
-        lineEnergyConsumption.setColor(Color.BLUE);
+        lineOutsideTemperature.setColor(R.color.colorPrimary);
         lineEnergyConsumption.setFillAlpha(50);
-        lineEnergyConsumption.setFillColor(Color.BLUE);
+        lineEnergyConsumption.setFillColor(R.color.colorPrimary);
         lineEnergyConsumption.setDrawCircles(false);
         lineEnergyConsumption.setDrawFilled(true);
         lineEnergyConsumption.setLineWidth(0);

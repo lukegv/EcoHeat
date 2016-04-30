@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -124,9 +125,10 @@ public class MainActivity extends AppCompatActivity {
         List<PredictionDataPoint> predictionData = LinearForecastInterpolation.getPredictionPoints(weatherForecast);
         for(int i=0;i<predictionData.size();i++) {
             predictionData.get(i).setTargetTemperature(23);
-            predictionData.get(i).setEnergyConsumption(15);
+            predictionData.get(i).setEnergyConsumption(0.0015f);
 		}
 		PredictionChart myChart = (PredictionChart) findViewById(R.id.myLineChart);
+        PredictionCalculator.predictEnergyConsumption(predictionData,0.002f,0.004f,5);
         myChart.setPredictionData(predictionData);
     }
 
