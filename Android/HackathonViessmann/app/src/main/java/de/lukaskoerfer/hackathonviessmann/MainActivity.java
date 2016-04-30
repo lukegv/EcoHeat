@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 import de.lukaskoerfer.hackathonviessmann.model.LinearForecastInterpolation;
+import de.lukaskoerfer.hackathonviessmann.model.PredictionCalculator;
 import de.lukaskoerfer.hackathonviessmann.model.PredictionDataPoint;
 import de.lukaskoerfer.hackathonviessmann.model.WeatherForecast;
 import de.lukaskoerfer.hackathonviessmann.ui.PredictionChart;
@@ -98,6 +99,10 @@ public class MainActivity extends AppCompatActivity {
             System.out.println(LinearForecastInterpolation.stringToSecond(element.getEndTime()));
         }
         List<PredictionDataPoint> predictionData = LinearForecastInterpolation.getPredictionPoints(weatherForecast);
+        for(int i=0;i<predictionData.size();i++) {
+            predictionData.get(i).setTargetTemperature(23);
+            predictionData.get(i).setEnergyConsumption(15);
+        }
         PredictionChart myChart = (PredictionChart) findViewById(R.id.myLineChart);
         myChart.setPredictionData(predictionData);
     }
