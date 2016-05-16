@@ -8,7 +8,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context="de.lukaskoerfer.hackathonviessmann.MainActivity">
+    tools:context="de.inces.hackathonviessmann.MainActivity">
         <org.honorato.multistatetogglebutton.MultiStateToggleButton
             android:id="@+id/stateToggle"
             android:layout_width="match_parent"
@@ -19,14 +19,14 @@
             mstb:mstbPrimaryColor="@color/colorSlider2"
             mstb:mstbSecondaryColor="@color/colorSlider1"/>
 
-        <de.lukaskoerfer.hackathonviessmann.ui.PredictionChart
+        <de.inces.hackathonviessmann.ui.PredictionChart
             android:id="@+id/myLineChart"
             android:layout_width="match_parent"
             android:layout_height="0dip"
             android:layout_weight="3"
             android:layout_marginTop="10dip"
             android:layout_marginBottom="10dip">
-        </de.lukaskoerfer.hackathonviessmann.ui.PredictionChart>
+        </de.inces.hackathonviessmann.ui.PredictionChart>
 
     <TextView
         android:layout_width="wrap_content"

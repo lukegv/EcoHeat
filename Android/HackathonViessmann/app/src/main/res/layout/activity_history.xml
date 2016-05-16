@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:padding="15dp"
     android:orientation="vertical"
-    tools:context="de.lukaskoerfer.hackathonviessmann.HistoryActivity">
+    tools:context="de.inces.hackathonviessmann.HistoryActivity">
 
     <TextView
         android:textAlignment="center"
